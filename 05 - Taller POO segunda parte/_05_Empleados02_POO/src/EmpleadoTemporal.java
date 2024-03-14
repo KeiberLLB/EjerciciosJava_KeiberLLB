@@ -5,8 +5,8 @@ public class EmpleadoTemporal extends Empleado{
     private Date inicioContrato;
     private Date finContrato;
 
-    public EmpleadoTemporal(String nombre, int edad, int idEmpleado, double salario, Date inicioContrato, Date finContrato) {
-        super(nombre, edad, idEmpleado, salario);
+    public EmpleadoTemporal(String nombre, int edad, double salario, Date inicioContrato, Date finContrato) {
+        super(nombre, edad, salario);
         this.inicioContrato = inicioContrato;
         this.finContrato = finContrato;
     }

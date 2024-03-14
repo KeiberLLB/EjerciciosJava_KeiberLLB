@@ -1,10 +1,10 @@
 public class Empleado extends Persona{
-    private int idEmpleado;
+    private static int idEmpleado = 1;
     private double salario;
 
-    public Empleado(String nombre, int edad, int idEmpleado, double salario) {
+    public Empleado(String nombre, int edad, double salario) {
         super(nombre, edad);
-        this.idEmpleado = idEmpleado;
+        this.idEmpleado ++;
         this.salario = salario;
     }
 
