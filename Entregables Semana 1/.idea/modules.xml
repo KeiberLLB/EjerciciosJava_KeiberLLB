@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/02 - Taller bucles en JAVA/02 - Taller bucles en JAVA.iml" filepath="$PROJECT_DIR$/02 - Taller bucles en JAVA/02 - Taller bucles en JAVA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03 - Taller Arrays/03 - Taller Arrays.iml" filepath="$PROJECT_DIR$/03 - Taller Arrays/03 - Taller Arrays.iml" />
+      <module fileurl="file://$PROJECT_DIR$/04 - Taller POO/04 - Taller POO.iml" filepath="$PROJECT_DIR$/04 - Taller POO/04 - Taller POO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Entregables Semana 1.iml" filepath="$PROJECT_DIR$/.idea/Entregables Semana 1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05 - Taller POO segunda parte/_05_Ejercicio03_POO/_05_Ejercicio03_POO.iml" filepath="$PROJECT_DIR$/05 - Taller POO segunda parte/_05_Ejercicio03_POO/_05_Ejercicio03_POO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05 - Taller POO segunda parte/_05_Empleados02_POO/_05_Empleados02_POO.iml" filepath="$PROJECT_DIR$/05 - Taller POO segunda parte/_05_Empleados02_POO/_05_Empleados02_POO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05 - Taller POO segunda parte/_05_inventario01_POO/_05_inventario01_POO.iml" filepath="$PROJECT_DIR$/05 - Taller POO segunda parte/_05_inventario01_POO/_05_inventario01_POO.iml" />
+    </modules>
+  </component>
+</project>
