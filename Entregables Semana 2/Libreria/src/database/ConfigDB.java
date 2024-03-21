@@ -8,6 +8,9 @@ public class ConfigDB {
     static Connection objConnection = null;
     public static Connection openConnection() {
         try {
+
+            //control alt shift j es lo mismo que el control d
+
             //class forName permite obtener o implementar el driver
             Class.forName("com.mysql.cj.jdbc.Driver");
             //Creamos variables con nuestra credenciales de la base de datos
