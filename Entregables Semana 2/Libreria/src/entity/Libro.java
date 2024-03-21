@@ -1,24 +1,19 @@
 package entity;
 
+import model.AutorModel;
+
 public class Libro {
-    private Autor autor;
-
-    public Autor getAutor() {
-        return autor;
-    }
-
-    public void setAutor(Autor autor) {
-        this.autor = autor;
-    }
-
     private int id;
     private String titulo;
     private int año_publicacion;
     private double precio;
     private int id_autor;
 
+    public AutorModel objAutor;
+
     public Libro() {
     }
+
 
     public Libro(int id, String titulo, int año_publicacion, double precio, int id_autor) {
         this.id = id;
@@ -68,14 +63,20 @@ public class Libro {
         this.id_autor = id_autor;
     }
 
-    @Override
-    public String toString() {
+    /*public String name() {
+        String name = "";
+        Object obj = objAutor.findById(id_autor);
+        Autor objAutor = (Autor) obj;
+        name = objAutor.getNombre();
+        return name;
+    }*/
+
+    public String toString(String name) {
         return "Libro " + "\n" +
                 "id= " + id + "\n" +
                 "titulo= " + titulo + '\n' +
                 "año publicación=" + año_publicacion + "\n" +
                 "precio= " + precio + "\n" +
-                "autor= " + '\n' + autor.toString()
-                ;
+                "autor= " + name + '\n';
     }
 }
