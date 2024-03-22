@@ -45,12 +45,16 @@ public class MenuControlador {
                     objAC.insertA();
                     break;
                 case "2":
+                    objAC.updateA();
                     break;
                 case "3":
+                    objAC.deleteA();
                     break;
                 case "4":
+                    objAC.all();
                     break;
                 case "5":
+                    objAC.buscarXnombre();
                     break;
             }
         } while (!optionA.equals("6"));
