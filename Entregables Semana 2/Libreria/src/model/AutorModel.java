@@ -18,7 +18,7 @@ public class AutorModel implements CRUD {
         Autor obj = (Autor) object;
 
         try {
-            String sql = "insert into Autores(nombre,nacionalidad) values(?,?);";
+            String sql = "insert into autores(nombre,nacionalidad) values(?,?);";
             PreparedStatement objPreparedStatement = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             //asignar los signos de interrogación
             objPreparedStatement.setString(1, obj.getNombre());
@@ -44,7 +44,7 @@ public class AutorModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         List<Object> listAutores = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Autores ORDER BY Autores.id ASC;";
+            String sql = "SELECT * FROM autores ORDER BY Autores.id ASC;";
             PreparedStatement objPreparedStatement = objConnection.prepareStatement(sql);
             ResultSet objResult = objPreparedStatement.executeQuery();
             while (objResult.next()) {
@@ -67,7 +67,7 @@ public class AutorModel implements CRUD {
         Autor objAutor = null;
 
         try {
-            String sql = "SELECT * FROM Autores WHERE id = ?;";
+            String sql = "SELECT * FROM autores WHERE id = ?;";
             PreparedStatement objPreparedS = objConnection.prepareStatement(sql);
             objPreparedS.setInt(1, id);
             ResultSet objResult = objPreparedS.executeQuery();
@@ -91,7 +91,7 @@ public class AutorModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
 
         try {
-            String sql = "UPDATE Autores SET nombre = ?, nacionalidad = ? WHERE id = ?;";
+            String sql = "UPDATE autores SET nombre = ?, nacionalidad = ? WHERE id = ?;";
             PreparedStatement objPrepared = objConnection.prepareStatement(sql);
             objPrepared.setString(1, objAutor.getNombre());
             objPrepared.setString(2, objAutor.getNacionalidad());
@@ -114,7 +114,7 @@ public class AutorModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         Autor objAutor = (Autor) object;
         try {
-            String sql = "DELETE FROM Autores WHERE id = ?;";
+            String sql = "DELETE FROM autores WHERE id = ?;";
             PreparedStatement objPrepared = objConnection.prepareStatement(sql);
             objPrepared.setInt(1, objAutor.getId());
             int totalAffectedRows = objPrepared.executeUpdate();

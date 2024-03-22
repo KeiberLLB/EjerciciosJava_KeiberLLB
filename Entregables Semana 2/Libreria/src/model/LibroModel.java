@@ -2,7 +2,6 @@ package model;
 
 import database.CRUD;
 import database.ConfigDB;
-import entity.Autor;
 import entity.Libro;
 
 import javax.swing.*;
@@ -65,16 +64,73 @@ public class LibroModel implements CRUD {
 
     public Object findById(int id) {
         Connection objConnection = ConfigDB.openConnection();
-        return null;
+        Libro objLibro = null;
+
+        try {
+            String sql = "SELECT * FROM libros WHERE id = ?;";
+            PreparedStatement objPreparedS = objConnection.prepareStatement(sql);
+            objPreparedS.setInt(1, id);
+            ResultSet objResult = objPreparedS.executeQuery();
+
+            while (objResult.next()) {
+                objLibro = new Libro();
+                objLibro.setId(objResult.getInt("id"));
+                objLibro.setTitulo(objResult.getString("titulo"));
+                objLibro.setAño_publicacion(objResult.getInt("año_publicacion"));
+                objLibro.setPrecio(objResult.getDouble("precio"));
+                objLibro.setId_autor(objResult.getInt("id_autor"));
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return objLibro;
     }
 
     public boolean update(Object object) {
+        boolean isUpdate = false;
+        Libro objLibro = (Libro) object;
         Connection objConnection = ConfigDB.openConnection();
-        return false;
+
+        try {
+            String sql = "UPDATE libros SET titulo = ?, año_publicacion = ?, precio = ?, id_autor = ? WHERE id = ?;";
+            PreparedStatement objPrepared = objConnection.prepareStatement(sql);
+            objPrepared.setString(1, objLibro.getTitulo());
+            objPrepared.setInt(2, objLibro.getAño_publicacion());
+            objPrepared.setDouble(3, objLibro.getPrecio());
+            objPrepared.setInt(4,objLibro.getId_autor());
+            objPrepared.setInt(5,objLibro.getId());
+
+            int totalAffectetedRows = objPrepared.executeUpdate();
+            if (totalAffectetedRows > 0) {
+                isUpdate = true;
+                JOptionPane.showMessageDialog(null, "Autor actualizado correctamente");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return isUpdate;
     }
 
     public boolean delete(Object object) {
+        boolean isDeleted = false;
         Connection objConnection = ConfigDB.openConnection();
-        return false;
+        Libro objLibro = (Libro) object;
+        try {
+            String sql = "DELETE FROM libros WHERE id = ?;";
+            PreparedStatement objPrepared = objConnection.prepareStatement(sql);
+            objPrepared.setInt(1, objLibro.getId());
+            int totalAffectedRows = objPrepared.executeUpdate();
+            if (totalAffectedRows > 0) {
+                isDeleted = true;
+                JOptionPane.showMessageDialog(null, "Autor Eliminado Correctamente");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return isDeleted;
     }
 }

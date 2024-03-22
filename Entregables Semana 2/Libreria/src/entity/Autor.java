@@ -1,5 +1,9 @@
 package entity;
 
+import model.LibroModel;
+import entity.Libro;
+
+
 public class Autor {
     private int id;
     private String nombre;
@@ -7,6 +11,8 @@ public class Autor {
 
     public Autor() {
     }
+
+    public LibroModel objLibro;
 
     public Autor(int id, String nombre, String nacionalidad) {
         this.id = id;
@@ -40,9 +46,15 @@ public class Autor {
 
     @Override
     public String toString() {
+        String libros = "";
+        for (Object libro : objLibro.findAll()){
+            Libro obj = (Libro) libro;
+            libros+=obj.getTitulo()+"\n";
+        }
         return "Autor: " +"\n"+
                 "id= " + id +"\n"+
                 "nombre= " + nombre + '\n' +
-                "nacionalidad= " + nacionalidad + '\n';
+                "nacionalidad= " + nacionalidad + '\n'+
+                libros+"\n";
     }
 }

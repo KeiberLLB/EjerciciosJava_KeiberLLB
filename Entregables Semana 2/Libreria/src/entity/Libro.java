@@ -63,21 +63,15 @@ public class Libro {
         this.id_autor = id_autor;
     }
 
-    /*public String name() {
-        String name = "";
-        Object obj = objAutor.findById(id_autor);
-        Autor objAutor = (Autor) obj;
-        name = objAutor.getNombre();
-        return name;
-    }*/
 
-    public String toString(String name) {
-        
+    @Override
+    public String toString() {
+        Autor obj =(Autor) objAutor.findById(id_autor);
         return "Libro " + "\n" +
                 "id= " + id + "\n" +
                 "titulo= " + titulo + '\n' +
                 "año publicación=" + año_publicacion + "\n" +
                 "precio= " + precio + "\n" +
-                "autor= " + name + '\n';
+                obj.toString();
     }
 }
