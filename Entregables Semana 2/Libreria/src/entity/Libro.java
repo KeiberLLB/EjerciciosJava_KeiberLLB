@@ -72,6 +72,7 @@ public class Libro {
     }*/
 
     public String toString(String name) {
+        
         return "Libro " + "\n" +
                 "id= " + id + "\n" +
                 "titulo= " + titulo + '\n' +
