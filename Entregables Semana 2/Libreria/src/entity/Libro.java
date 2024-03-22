@@ -9,7 +9,7 @@ public class Libro {
     private double precio;
     private int id_autor;
 
-    public AutorModel objAutor;
+
 
     public Libro() {
     }
@@ -66,12 +66,13 @@ public class Libro {
 
     @Override
     public String toString() {
-        Autor obj =(Autor) objAutor.findById(id_autor);
+        AutorModel objAutor = new AutorModel();
+        Autor obj = (Autor) objAutor.findById(id_autor);
         return "Libro " + "\n" +
                 "id= " + id + "\n" +
                 "titulo= " + titulo + '\n' +
                 "año publicación=" + año_publicacion + "\n" +
                 "precio= " + precio + "\n" +
-                obj.toString();
+                obj.getNombre();
     }
 }

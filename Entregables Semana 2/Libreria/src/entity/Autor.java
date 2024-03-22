@@ -12,7 +12,7 @@ public class Autor {
     public Autor() {
     }
 
-    public LibroModel objLibro;
+
 
     public Autor(int id, String nombre, String nacionalidad) {
         this.id = id;
@@ -46,15 +46,16 @@ public class Autor {
 
     @Override
     public String toString() {
+        LibroModel objLibro = new LibroModel();
         String libros = "";
-        for (Object libro : objLibro.findAll()){
+        for (Object libro : objLibro.findAll()) {
             Libro obj = (Libro) libro;
-            libros+=obj.getTitulo()+"\n";
+            libros += obj.getTitulo() + "\n";
         }
-        return "Autor: " +"\n"+
-                "id= " + id +"\n"+
+        return "Autor: " + "\n" +
+                "id= " + id + "\n" +
                 "nombre= " + nombre + '\n' +
-                "nacionalidad= " + nacionalidad + '\n'+
-                libros+"\n";
+                "nacionalidad= " + nacionalidad + '\n' +
+                libros + "\n";
     }
 }

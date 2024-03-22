@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class ConfigDB {
     static Connection objConnection = null;
+
     public static Connection openConnection() {
         try {
 

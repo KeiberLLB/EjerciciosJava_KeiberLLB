@@ -1,10 +1,8 @@
-import database.ConfigDB;
-
-import java.sql.Connection;
+import controladores.MenuControlador;
 
 public class Main {
     public static void main(String[] args) {
-        Connection objConnection = ConfigDB.openConnection();
-
+        MenuControlador objMenu = new MenuControlador();
+        objMenu.menuPrincipal();
     }
 }

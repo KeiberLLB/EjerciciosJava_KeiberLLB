@@ -29,7 +29,7 @@ public class LibroModel implements CRUD {
             while (objResult.next()) {
                 obj.setId(objResult.getInt(1));
             }
-            JOptionPane.showMessageDialog(null, "Coder insertion was successful");
+            JOptionPane.showMessageDialog(null, "Libro Guardado");
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
@@ -42,7 +42,7 @@ public class LibroModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         List<Object> listLibros = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM libros ORDER BY libres.id ASC;";
+            String sql = "SELECT * FROM libros ORDER BY libros.id ASC;";
             PreparedStatement objPreparedStatement = objConnection.prepareStatement(sql);
             ResultSet objResult = objPreparedStatement.executeQuery();
             while (objResult.next()) {
@@ -55,7 +55,7 @@ public class LibroModel implements CRUD {
                 listLibros.add(objLibro);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data acquisition Error");
+            JOptionPane.showMessageDialog(null, "Data acquisition Error"+e.getMessage());
         }
 
         ConfigDB.closeConnection();
@@ -99,8 +99,8 @@ public class LibroModel implements CRUD {
             objPrepared.setString(1, objLibro.getTitulo());
             objPrepared.setInt(2, objLibro.getAño_publicacion());
             objPrepared.setDouble(3, objLibro.getPrecio());
-            objPrepared.setInt(4,objLibro.getId_autor());
-            objPrepared.setInt(5,objLibro.getId());
+            objPrepared.setInt(4, objLibro.getId_autor());
+            objPrepared.setInt(5, objLibro.getId());
 
             int totalAffectetedRows = objPrepared.executeUpdate();
             if (totalAffectetedRows > 0) {

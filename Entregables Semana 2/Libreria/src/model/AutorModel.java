@@ -16,7 +16,6 @@ public class AutorModel implements CRUD {
     public Object insert(Object object) {
         Connection objConnection = ConfigDB.openConnection();
         Autor obj = (Autor) object;
-
         try {
             String sql = "insert into autores(nombre,nacionalidad) values(?,?);";
             PreparedStatement objPreparedStatement = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -31,7 +30,7 @@ public class AutorModel implements CRUD {
             }
             //cerramos el objPreparedStatement
             objPreparedStatement.close();
-            JOptionPane.showMessageDialog(null, "Coder insertion was successful");
+            JOptionPane.showMessageDialog(null, "Autor Guardado");
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
@@ -44,7 +43,7 @@ public class AutorModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         List<Object> listAutores = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM autores ORDER BY Autores.id ASC;";
+            String sql = "SELECT * FROM autores ORDER BY autores.id ASC;";
             PreparedStatement objPreparedStatement = objConnection.prepareStatement(sql);
             ResultSet objResult = objPreparedStatement.executeQuery();
             while (objResult.next()) {
@@ -55,7 +54,7 @@ public class AutorModel implements CRUD {
                 listAutores.add(objAutor);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data acquisition Error");
+            JOptionPane.showMessageDialog(null, "Data acquisition Error"+e.getMessage());
         }
 
         ConfigDB.closeConnection();
