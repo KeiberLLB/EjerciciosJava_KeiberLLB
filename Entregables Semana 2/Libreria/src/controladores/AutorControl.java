@@ -39,7 +39,7 @@ public class AutorControl {
     }
 
     public void deleteA() {
-        String listaAutores = "";
+        String listaAutores = "Lista de Autores ...\n";
         for (Object obj : objM.findAll()) {
             Autor objA = (Autor) obj;
             listaAutores += objA.toString() + "\n";
@@ -50,7 +50,7 @@ public class AutorControl {
         if (objAutor == null) {
             JOptionPane.showMessageDialog(null, "Autor no encontrado");
         } else {
-            confirm = JOptionPane.showConfirmDialog(null, "Are your sure want to delete the coder: \n" + objAutor.toString());
+            confirm = JOptionPane.showConfirmDialog(null, "Estas seguro? : \n" + objAutor.toString());
             if (confirm == 0) {
                 this.objM.delete(objAutor);
             }
@@ -67,9 +67,9 @@ public class AutorControl {
     }
 
     public void buscarXnombre() {
-        String search = JOptionPane.showInputDialog("Enter the name you want to search ");
-        String list = "CODER LIST\n";
-        if (!this.objCoderModel.getByName(search).isEmpty()) {
+        String search = JOptionPane.showInputDialog("Ingresa el nombre de la busqueda: ");
+        String list = "Autores\n";
+        if (!this.objM.getByName(search).isEmpty()) {
             for (Autor autor : this.objM.getByName(search)) {
                 list += autor.toString() + "\n";
             }

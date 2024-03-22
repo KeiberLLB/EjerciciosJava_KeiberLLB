@@ -10,7 +10,6 @@ public class Libro {
     private int id_autor;
 
 
-
     public Libro() {
     }
 
@@ -72,7 +71,6 @@ public class Libro {
                 "id= " + id + "\n" +
                 "titulo= " + titulo + '\n' +
                 "año publicación=" + año_publicacion + "\n" +
-                "precio= " + precio + "\n" +
-                obj.getNombre();
+                "precio= " + precio + "\n" + obj.getNombre() + "\n";
     }
 }

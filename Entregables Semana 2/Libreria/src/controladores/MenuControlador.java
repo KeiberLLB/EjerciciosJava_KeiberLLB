@@ -6,7 +6,6 @@ import javax.swing.*;
 public class MenuControlador {
 
 
-
     public void menuPrincipal() {
         String option = "";
         do {
@@ -75,14 +74,20 @@ public class MenuControlador {
                     """);
             switch (optionL) {
                 case "1":
+                    objLC.insertL();
                     break;
                 case "2":
+                    objLC.updateL();
                     break;
                 case "3":
+                    objLC.deleteL();
                     break;
                 case "4":
+                    objLC.allL();
                     break;
                 case "5":
+                    objLC.buscarXnombreL();
+
                     break;
             }
         } while (!optionL.equals("6"));

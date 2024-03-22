@@ -13,7 +13,6 @@ public class Autor {
     }
 
 
-
     public Autor(int id, String nombre, String nacionalidad) {
         this.id = id;
         this.nombre = nombre;
@@ -47,10 +46,12 @@ public class Autor {
     @Override
     public String toString() {
         LibroModel objLibro = new LibroModel();
-        String libros = "";
+        String libros = "Libros: \n";
         for (Object libro : objLibro.findAll()) {
             Libro obj = (Libro) libro;
-            libros += obj.getTitulo() + "\n";
+            if (obj.getId_autor() == id) {
+                libros += obj.getTitulo() + "\n";
+            }
         }
         return "Autor: " + "\n" +
                 "id= " + id + "\n" +

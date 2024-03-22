@@ -13,4 +13,5 @@ public interface CRUD {
 
     public boolean delete(Object object);
 
+
 }
