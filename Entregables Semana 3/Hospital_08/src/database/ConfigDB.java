@@ -13,7 +13,7 @@ public class ConfigDB {
             String url = "jdbc:mysql://bd4eaaffojszzhygscqy-mysql.services.clever-cloud.com/bd4eaaffojszzhygscqy";
             String user = "uudekkrc3v1v7auc";
             String password = "RB0LFJtZYL4LXFYBFbJV";
-            objConnection = (Connection) DriverManager.getConnection(url, user, password);
+            objConnection = DriverManager.getConnection(url, user, password);
             System.out.println("Successful connection!");
 
         } catch (ClassNotFoundException e) {
