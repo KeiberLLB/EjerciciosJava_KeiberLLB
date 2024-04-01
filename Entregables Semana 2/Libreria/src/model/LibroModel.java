@@ -2,6 +2,7 @@ package model;
 
 import database.CRUD;
 import database.ConfigDB;
+import entity.Autor;
 import entity.Libro;
 
 import javax.swing.*;
@@ -55,7 +56,7 @@ public class LibroModel implements CRUD {
                 listLibros.add(objLibro);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data acquisition Error"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data acquisition Error" + e.getMessage());
         }
 
         ConfigDB.closeConnection();
@@ -105,7 +106,7 @@ public class LibroModel implements CRUD {
             int totalAffectetedRows = objPrepared.executeUpdate();
             if (totalAffectetedRows > 0) {
                 isUpdate = true;
-                JOptionPane.showMessageDialog(null, "Autor actualizado correctamente");
+                JOptionPane.showMessageDialog(null, "Libro actualizado correctamente");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
@@ -125,12 +126,36 @@ public class LibroModel implements CRUD {
             int totalAffectedRows = objPrepared.executeUpdate();
             if (totalAffectedRows > 0) {
                 isDeleted = true;
-                JOptionPane.showMessageDialog(null, "Autor Eliminado Correctamente");
+                JOptionPane.showMessageDialog(null, "Libro Eliminado Correctamente");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
         }
         ConfigDB.closeConnection();
         return isDeleted;
+    }
+
+    public ArrayList<Libro> getByName(String name) {
+        Connection objConnection = ConfigDB.openConnection();
+        ArrayList<Libro> listLibros = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM libros WHERE titulo like ? ;";
+            PreparedStatement objPreparedStatement = objConnection.prepareStatement(sql);
+            objPreparedStatement.setString(1, "%" + name + "%");
+            ResultSet objResult = objPreparedStatement.executeQuery();
+            while (objResult.next()) {
+                Libro objLibro = new Libro();
+                objLibro.setId(objResult.getInt("id"));
+                objLibro.setAño_publicacion(objResult.getInt("año_publicacion"));
+                objLibro.setTitulo(objResult.getString("titulo"));
+                objLibro.setPrecio(objResult.getDouble("precio"));
+                objLibro.setId_autor(objResult.getInt("id_autor"));
+                listLibros.add(objLibro);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data acquisition Error" + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return listLibros;
     }
 }

@@ -54,7 +54,7 @@ public class AutorModel implements CRUD {
                 listAutores.add(objAutor);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data acquisition Error"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data acquisition Error" + e.getMessage());
         }
 
         ConfigDB.closeConnection();
@@ -127,4 +127,27 @@ public class AutorModel implements CRUD {
         ConfigDB.closeConnection();
         return isDeleted;
     }
+
+    public ArrayList<Autor> getByName(String name) {
+        Connection objConnection = ConfigDB.openConnection();
+        ArrayList<Autor> listAutores = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM autores WHERE nombre like ? ;";
+            PreparedStatement objPreparedStatement = objConnection.prepareStatement(sql);
+            objPreparedStatement.setString(1, "%" + name + "%");
+            ResultSet objResult = objPreparedStatement.executeQuery();
+            while (objResult.next()) {
+                Autor objAutor = new Autor();
+                objAutor.setId(objResult.getInt("id"));
+                objAutor.setNombre(objResult.getString("nombre"));
+                objAutor.setNacionalidad(objResult.getString("nacionalidad"));
+                listAutores.add(objAutor);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data acquisition Error" + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return listAutores;
+    }
+
 }
