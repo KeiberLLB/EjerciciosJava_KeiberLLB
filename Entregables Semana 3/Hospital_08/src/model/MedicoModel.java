@@ -2,7 +2,9 @@ package model;
 
 import database.CRUD;
 import database.ConfigDB;
+import entity.Especialidad;
 import entity.Medico;
+import entity.Paciente;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -25,7 +27,6 @@ public class MedicoModel implements CRUD {
             objPS.setString(1, objM.getNombre());
             objPS.setString(2, objM.getApellidos());
             objPS.setInt(3, objM.getId_especialidad());
-            ****
             objPS.execute();
             ResultSet objResult = objPS.getGeneratedKeys();
             while (objResult.next()) {
@@ -103,5 +104,31 @@ public class MedicoModel implements CRUD {
         ConfigDB.closeConnection();
         return listMedicos;
     }
+    public Object findById(int id) {
+        Connection objConnection = ConfigDB.openConnection();
+        Medico objMedico = new Medico();
+        try {
+            String sql = "SELECT * FROM medico INNER JOIN especialidad on medico.id_especialidad = especialidad.id_especialidad WHERE id_medico = ?;";
+            PreparedStatement objPS = objConnection.prepareStatement(sql);
+            objPS.setInt(1, id);
+            ResultSet objResult = objPS.executeQuery();
+            while (objResult.next()) {
+                Especialidad objE = new Especialidad();
+                objMedico.setId_medico(objResult.getInt("medico.id_medico"));
+                objMedico.setNombre(objResult.getString("medico.nombre"));
+                objMedico.setApellidos(objResult.getString("medico.apellidos"));
+                objMedico.setId_especialidad(objResult.getInt("medico.id_especialidad"));
 
+                objE.setId_especialidad(objResult.getInt("especialidad.id_especialidad"));
+                objE.setNombre(objResult.getString("especialidad.nombre"));
+                objE.setDescripcion(objResult.getString("especialidad.descripcion"));
+
+                objMedico.setObjE(objE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return objMedico;
+    }
 }

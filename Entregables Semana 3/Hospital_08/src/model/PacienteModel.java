@@ -85,7 +85,7 @@ public class PacienteModel implements CRUD {
             String sql = "SELECT * FROM paciente ORDER BY paciente.id_paciente ASC;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             ResultSet objResult = objPS.executeQuery();
-            while (objResult.next()){
+            while (objResult.next()) {
                 Paciente objP = new Paciente();
                 objP.setId_paciente(objResult.getInt("id_paciente"));
                 objP.setNombre(objResult.getString("nombre"));
@@ -101,4 +101,25 @@ public class PacienteModel implements CRUD {
         return listPacientes;
     }
 
+    public Object findById(int id) {
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = new Paciente();
+        try {
+            String sql = "SELECT * FROM paciente WHERE id_paciente = ?;";
+            PreparedStatement objPS = objConnection.prepareStatement(sql);
+            objPS.setInt(1, id);
+            ResultSet objResult = objPS.executeQuery();
+            while (objResult.next()) {
+                objPaciente.setId_paciente(objResult.getInt("id_paciente"));
+                objPaciente.setNombre(objResult.getString("nombre"));
+                objPaciente.setApellidos(objResult.getString("apellidos"));
+                objPaciente.setFecha_nacimiento(objResult.getDate("fecha_nacimiento"));
+                objPaciente.setDocumento_identidad(objResult.getString("documento_identidad"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return objPaciente;
+    }
 }

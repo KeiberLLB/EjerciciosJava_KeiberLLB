@@ -1,10 +1,13 @@
 package entity;
 
+import model.EspecialidadModel;
+
 public class Medico {
     private int id_medico;
     private String nombre;
     private String apellidos;
     private int id_especialidad;
+    private Especialidad objE;
 
     public Medico() {
     }
@@ -14,6 +17,14 @@ public class Medico {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.id_especialidad = id_especialidad;
+    }
+
+    public Especialidad getObjE() {
+        return objE;
+    }
+
+    public void setObjE(Especialidad objE) {
+        this.objE = objE;
     }
 
     public int getId_medico() {
@@ -48,5 +59,12 @@ public class Medico {
         this.id_especialidad = id_especialidad;
     }
 
-    /*pendiente toString depende de los metodos de especialidad*/
+    @Override
+    public String toString() {
+        return "Medico\n" +
+                "   Id Medico= " + id_medico + "\n" +
+                "   Nombre= " + nombre + '\n' +
+                "   Apellidos= " + apellidos + '\n' +
+                "   " + objE + "\n";
+    }
 }

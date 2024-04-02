@@ -3,6 +3,7 @@ package model;
 import database.CRUD;
 import database.ConfigDB;
 import entity.Especialidad;
+import entity.Medico;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -85,6 +86,7 @@ public class EspecialidadModel implements CRUD {
         List<Object> listEspecilidades = new ArrayList<>();
         try {
             String sql = "SELECT * FROM especialidad ORDER BY especialidad.id_especialidad ASC;";
+            /*"SELECT * FROM cita INNER JOIN medico on cita.id_medico = medico.id_medico"*/
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             ResultSet objResult = objPS.executeQuery();
             while (objResult.next()){
@@ -99,5 +101,25 @@ public class EspecialidadModel implements CRUD {
         }
         ConfigDB.closeConnection();
         return listEspecilidades;
+    }
+
+    public Object findById(int id) {
+        Connection objConnection = ConfigDB.openConnection();
+        Especialidad objEspecialidad = new Especialidad();
+        try {
+            String sql = "SELECT * FROM especialidad WHERE id_especialidad = ?;";
+            PreparedStatement objPS = objConnection.prepareStatement(sql);
+            objPS.setInt(1, id);
+            ResultSet objResult = objPS.executeQuery();
+            while (objResult.next()) {
+                objEspecialidad.setId_especialidad(objResult.getInt("id_especialidad"));
+                objEspecialidad.setNombre(objResult.getString("nombre"));
+                objEspecialidad.setDescripcion(objResult.getString("descripcion"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return objEspecialidad;
     }
 }
