@@ -22,7 +22,7 @@ public class MedicoModel implements CRUD {
         Medico objM = (Medico) obj;
         //Estructuración y ejecución comando SQL
         try {
-            String sql = "insert into medico(nombre,apellidos,id_especialidad) values(?,?,?);";
+            String sql = "insert into medico(nombre, apellidos, id_especialidad) values(?, ?, ?);";
             PreparedStatement objPS = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             objPS.setString(1, objM.getNombre());
             objPS.setString(2, objM.getApellidos());
@@ -51,6 +51,7 @@ public class MedicoModel implements CRUD {
             objPS.setString(1, objM.getNombre());
             objPS.setString(2, objM.getApellidos());
             objPS.setInt(3, objM.getId_especialidad());
+            objPS.setInt(4, objM.getId_medico());
             int totalAffected = objPS.executeUpdate();
             if (totalAffected > 0) {
                 isUpdate = true;
@@ -87,15 +88,21 @@ public class MedicoModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         List<Object> listMedicos = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM medico ORDER BY medico.id_medico ASC;";
+            String sql = "SELECT * FROM medico INNER JOIN especialidad on medico.id_especialidad = especialidad.id_especialidad ORDER BY medico.id_medico ASC;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             ResultSet objResult = objPS.executeQuery();
             while (objResult.next()){
                 Medico objM = new Medico();
-                objM.setId_medico(objResult.getInt("id_medico"));
-                objM.setNombre(objResult.getString("nombre"));
-                objM.setApellidos(objResult.getString("apellidos"));
-                objM.setId_especialidad(objResult.getInt("id_especialidad"));
+                Especialidad objE = new Especialidad();
+                objM.setId_medico(objResult.getInt("medico.id_medico"));
+                objM.setNombre(objResult.getString("medico.nombre"));
+                objM.setApellidos(objResult.getString("medico.apellidos"));
+                objM.setId_especialidad(objResult.getInt("medico.id_especialidad"));
+                objE.setId_especialidad(objResult.getInt("especialidad.id_especialidad"));
+                objE.setNombre(objResult.getString("especialidad.nombre"));
+                objE.setDescripcion(objResult.getString("especialidad.descripcion"));
+
+                objM.setObjE(objE);
                 listMedicos.add(objM);
             }
         } catch (SQLException e) {

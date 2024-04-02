@@ -85,7 +85,7 @@ public class LibroControl {
         }
         JOptionPane.showMessageDialog(null, "Autores: \n" + listaLibros);
     }
-
+    
     public void buscarXnombreL() {
         String search = JOptionPane.showInputDialog("Ingresa el titulo de la busqueda: ");
         String list = "Libros\n";

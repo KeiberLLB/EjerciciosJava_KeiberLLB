@@ -65,6 +65,6 @@ public class Medico {
                 "   Id Medico= " + id_medico + "\n" +
                 "   Nombre= " + nombre + '\n' +
                 "   Apellidos= " + apellidos + '\n' +
-                "   " + objE + "\n";
+                "   Especialidad= " + objE.getNombre() + "\n";
     }
 }
