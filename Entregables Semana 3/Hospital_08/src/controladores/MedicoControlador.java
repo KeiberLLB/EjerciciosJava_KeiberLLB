@@ -55,7 +55,7 @@ public class MedicoControlador {
             Especialidad temp = (Especialidad) objEM.findById(obj.getId_especialidad());
 
             confirm = JOptionPane.showConfirmDialog(null, "Deseas actualizar la especialidad? : \n" + temp.getNombre());
-            int id_especialidad = obj.getId_especialidad();
+            int id_especialidad = obj.getId_especialidad(); 
 
             if (confirm == 0) {
                 String lista = objE.getAll(objEM.findAll());

@@ -4,7 +4,7 @@ import model.MedicoModel;
 import model.PacienteModel;
 
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 public class Cita {
     private int id_cita;
@@ -86,25 +86,11 @@ public class Cita {
     @Override
     public String toString() {
         return "\nCita\n" +
-                "   Id Cita=" + id_cita +
+                "   Id Cita=" + id_cita + "\n" +
                 "   Fecha Cita= " + fecha_cita + "\n" +
                 "   Hora Cita= " + hora_cita + "\n" +
                 "   Motivo= " + motivo + "\n" +
-                "   " + objM + "\n" +
-                "   " + objP + "\n";
+                "   Medico= " + objM.getNombre() + " " + objM.getApellidos() + "\n" +
+                "   Paciente= " + objP.getNombre() + " " + objP.getApellidos() + "\n";
     }
-/*public String toString() {
-        PacienteModel objModelP = new PacienteModel();
-        MedicoModel objModelM = new MedicoModel();
-        Paciente objP = (Paciente) objModelP.findById(id_paciente);
-        Medico objM = (Medico) objModelM.findById(id_medico);
-
-        return "Cita\n" +
-                "Id cita= " + id_cita + "\n" +
-                objP.toString() + "\n" +
-                objM.toString() + "\n" +
-                "Fecha Cita= " + fecha_cita + "\n" +
-                "Hora Cita= " + hora_cita + "\n" +
-                "Motivo= " + motivo + '\n';
-    }*/
 }

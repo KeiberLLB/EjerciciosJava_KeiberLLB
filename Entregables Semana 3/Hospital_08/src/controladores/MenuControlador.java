@@ -153,10 +153,13 @@ public class MenuControlador {
                     objC.insertC();
                     break;
                 case "2":
+                    objC.updateC();
                     break;
                 case "3":
+                    objC.deleteC();
                     break;
                 case "4":
+                    objC.getCita();
                     break;
             }
         } while (!option.equals("5"));
