@@ -13,13 +13,18 @@ public class MedicoControlador {
     EspecialidadModel objEM = new EspecialidadModel();
     EspecialidadControlador objE = new EspecialidadControlador();
 
-    public String getAllM(List<Object> objectList) {
+    public String getAll(List<Object> objectList) {
         String list = "Lista de Medicos: \n";
         for (Object med : objectList) {
             Medico objMed = (Medico) med;
             list += objMed.toString() + "\n";
         }
         return list;
+    }
+
+    public void getEsp() {
+        int id = Integer.parseInt(JOptionPane.showInputDialog(objEM.findAll()+"Ingrese el Id de la especialidad"));
+        JOptionPane.showMessageDialog(null, getAll(objM.findyEsp(id)));
     }
 
     public void insertM() {
@@ -37,8 +42,8 @@ public class MedicoControlador {
     }
 
     public void updateM() {
-        String listaM = getAllM(objM.findAll());
-        int id_medico = Integer.parseInt(JOptionPane.showInputDialog(listaM + "Ingresa el Id del Medico"));
+        String listaM = getAll(objM.findAll());
+        int id_medico = Integer.parseInt(JOptionPane.showInputDialog(listaM + "\nIngresa el Id del Medico: "));
         Medico obj = (Medico) this.objM.findById(id_medico);
 
         int confirm = 1;
@@ -58,6 +63,20 @@ public class MedicoControlador {
             }
             obj.setId_especialidad(id_especialidad);
             this.objM.update(obj);
+        }
+    }
+
+    public void deleteM() {
+        int confirm = 1;
+        int idDelete = Integer.parseInt(JOptionPane.showInputDialog(getAll(objM.findAll()) + "\nIngrese el Id del medico a eliminar: "));
+        Medico objMedico = (Medico) objM.findById(idDelete);
+        if (objMedico == null) {
+            JOptionPane.showMessageDialog(null, "Medico no encontrado");
+        } else {
+            confirm = JOptionPane.showConfirmDialog(null, "Estas seguro? : \n" + objMedico);
+            if (confirm == 0) {
+                this.objM.delete(objMedico);
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 package controladores;
 
+import model.EspecialidadModel;
+
 import javax.swing.*;
 
 public class MenuControlador {
@@ -10,9 +12,10 @@ public class MenuControlador {
                     MENU
                     1. Registros:
                     2. Actualizaciones:
-                    3. Informacion:
-                    4. Citas:
-                    5. Salir
+                    3. Eliminar:
+                    4. Información:
+                    5. Citas:
+                    6. Salir
                     """);
             switch (option) {
                 case "1":
@@ -22,16 +25,22 @@ public class MenuControlador {
                     menuActualizaciones();
                     break;
                 case "3":
+                    menuEliminar();
                     break;
                 case "4":
+                    menuInfo();
+                    break;
+                case "5":
+                    menuCita();
                     break;
             }
-        } while (!option.equals("5"));
+        } while (!option.equals("6"));
     }
 
     EspecialidadControlador objE = new EspecialidadControlador();
     MedicoControlador objM = new MedicoControlador();
     PacienteControlador objP = new PacienteControlador();
+    CitaControlador objC = new CitaControlador();
 
     public void menuRegistros() {
         String option = "";
@@ -56,6 +65,7 @@ public class MenuControlador {
             }
         } while (!option.equals("4"));
     }
+
     public void menuActualizaciones() {
         String option = "";
         do {
@@ -78,5 +88,78 @@ public class MenuControlador {
                     break;
             }
         } while (!option.equals("4"));
+    }
+
+    public void menuEliminar() {
+        String option = "";
+        do {
+            option = JOptionPane.showInputDialog("""
+                    MENU
+                    1. Eliminar Especialidad:
+                    2. Eliminar Medico:
+                    3. Eliminar Paciente:
+                    4. Salir
+                    """);
+            switch (option) {
+                case "1":
+                    objE.deleteE();
+                    break;
+                case "2":
+                    objM.deleteM();
+                    break;
+                case "3":
+                    objP.deleteP();
+                    break;
+            }
+        } while (!option.equals("4"));
+    }
+    public void menuInfo () {
+        String option = "";
+        do {
+            option = JOptionPane.showInputDialog("""
+                        MENU
+                        1. Buscar Especialidad:
+                        2. Listar Medicos por Especialidad:
+                        3. Buscar Paciente por documento:
+                        4. Salir
+                        """);
+            switch (option) {
+                case "1":
+                    objE.findById();
+                    break;
+                case "2":
+                    objM.getEsp();
+                    break;
+                case "3":
+                    objP.getByCC();
+                    break;
+            }
+        } while (!option.equals("4"));
+    }
+
+    public void menuCita() {
+        String option = "";
+        do {
+            option = JOptionPane.showInputDialog("""
+                    MENU
+                    1. Nueva Cita:
+                    2. Actualizar Cita:
+                    3. Eliminar Cita:
+                    4. Buscar Cita:
+                    5. Salir
+                    """);
+            switch (option) {
+                case "1":
+                    objC.insertC();
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+            }
+        } while (!option.equals("5"));
+
     }
 }

@@ -121,13 +121,14 @@ public class CitaModel implements CRUD {
 
     public Object findById(int id) {
         Connection objConnection = ConfigDB.openConnection();
-        Cita objC = new Cita();
+        Cita objC = null;
         try {
             String sql = "SELECT * FROM cita INNER JOIN medico on cita.id_medico = medico.id_medico inner JOIN paciente on cita.id_paciente = paciente.id_paciente WHERE id_cita = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setInt(1, id);
             ResultSet objResult = objPS.executeQuery();
             while (objResult.next()) {
+                objC = new Cita();
                 Paciente objP = new Paciente();
                 Medico objM = new Medico();
                 objC.setId_cita(objResult.getInt("cita.id_cita"));

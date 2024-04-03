@@ -70,10 +70,10 @@ public class LibroControl {
         if (objLibro == null) {
             JOptionPane.showMessageDialog(null, "Libro no encontrado");
         } else {
-            confirm = JOptionPane.showConfirmDialog(null, "Estas seguro? : \n" + objLibro.toString());
-            if (confirm == 0) {
-                this.objM.delete(objLibro);
-            }
+                confirm = JOptionPane.showConfirmDialog(null, "Estas seguro? : \n" + objLibro.toString());
+                if (confirm == 0) {
+                    this.objM.delete(objLibro);
+                }
         }
     }
 

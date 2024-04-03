@@ -18,7 +18,7 @@ public class PacienteModel implements CRUD {
             PreparedStatement objPS = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             objPS.setString(1, objP.getNombre());
             objPS.setString(2, objP.getApellidos());
-            objPS.setDate(3, (Date) objP.getFecha_nacimiento());
+            objPS.setDate(3, objP.getFecha_nacimiento());
             objPS.setString(4, objP.getDocumento_identidad());
             objPS.execute();
             ResultSet objResult = objPS.getGeneratedKeys();
@@ -103,11 +103,33 @@ public class PacienteModel implements CRUD {
 
     public Object findById(int id) {
         Connection objConnection = ConfigDB.openConnection();
-        Paciente objPaciente = new Paciente();
+        Paciente objPaciente = null;
         try {
             String sql = "SELECT * FROM paciente WHERE id_paciente = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setInt(1, id);
+            ResultSet objResult = objPS.executeQuery();
+            while (objResult.next()) {
+                objPaciente = new Paciente();
+                objPaciente.setId_paciente(objResult.getInt("id_paciente"));
+                objPaciente.setNombre(objResult.getString("nombre"));
+                objPaciente.setApellidos(objResult.getString("apellidos"));
+                objPaciente.setFecha_nacimiento(objResult.getDate("fecha_nacimiento"));
+                objPaciente.setDocumento_identidad(objResult.getString("documento_identidad"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return objPaciente;
+    }
+    public Object findByCC(String cc) {
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = new Paciente();
+        try {
+            String sql = "SELECT * FROM paciente WHERE documento_identidad = ?;";
+            PreparedStatement objPS = objConnection.prepareStatement(sql);
+            objPS.setString(1, cc);
             ResultSet objResult = objPS.executeQuery();
             while (objResult.next()) {
                 objPaciente.setId_paciente(objResult.getInt("id_paciente"));
@@ -122,4 +144,5 @@ public class PacienteModel implements CRUD {
         ConfigDB.closeConnection();
         return objPaciente;
     }
+
 }

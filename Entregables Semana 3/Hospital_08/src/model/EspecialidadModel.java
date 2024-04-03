@@ -66,7 +66,7 @@ public class EspecialidadModel implements CRUD {
         Especialidad objE = (Especialidad) obj;
         Connection objConnection = ConfigDB.openConnection();
         try {
-            String sql = "DELETE FROM especialidad WHERE id_especialidad=?;";
+            String sql = "DELETE FROM especialidad WHERE id_especialidad = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setInt(1, objE.getId_especialidad());
             int totalAffected = objPS.executeUpdate();
@@ -105,13 +105,14 @@ public class EspecialidadModel implements CRUD {
 
     public Object findById(int id) {
         Connection objConnection = ConfigDB.openConnection();
-        Especialidad objEspecialidad = new Especialidad();
+        Especialidad objEspecialidad = null;
         try {
             String sql = "SELECT * FROM especialidad WHERE id_especialidad = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setInt(1, id);
             ResultSet objResult = objPS.executeQuery();
             while (objResult.next()) {
+                objEspecialidad = new Especialidad();
                 objEspecialidad.setId_especialidad(objResult.getInt("id_especialidad"));
                 objEspecialidad.setNombre(objResult.getString("nombre"));
                 objEspecialidad.setDescripcion(objResult.getString("descripcion"));
@@ -122,4 +123,6 @@ public class EspecialidadModel implements CRUD {
         ConfigDB.closeConnection();
         return objEspecialidad;
     }
+
+
 }
