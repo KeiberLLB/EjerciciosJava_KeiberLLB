@@ -120,7 +120,7 @@ public class CitaModel implements CRUD {
                 objP.setNombre(objResult.getString("paciente.nombre"));
                 objP.setApellidos(objResult.getString("paciente.apellidos"));
                 objP.setFecha_nacimiento(objResult.getDate("paciente.fecha_nacimiento"));
-                objP.setDocumento_identidad(objResult.getString("paciente.fecha_nacimiento"));
+                objP.setDocumento_identidad(objResult.getString("paciente.documento_identidad"));
 
                 objE.setId_especialidad(objResult.getInt("especialidad.id_especialidad"));
                 objE.setNombre(objResult.getString("especialidad.nombre"));
