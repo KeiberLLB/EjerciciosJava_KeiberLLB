@@ -10,7 +10,6 @@ public class Vuelo {
     private Time hora_salida;
     private int id_avion;
     private Avion objAvion;
-
     public Vuelo() {
     }
 

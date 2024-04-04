@@ -54,12 +54,13 @@ public class CitaModel implements CRUD {
         Cita objC = (Cita) object;
         Connection objConnection = ConfigDB.openConnection();
         try {
-            String sql = "UPDATE cita SET id_medico = ?, fecha_cita = ?, hora_cita = ?, motivo = ?;";
+            String sql = "UPDATE cita SET id_medico = ?, fecha_cita = ?, hora_cita = ?, motivo = ? WHERE id_cita = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setInt(1, objC.getId_medico());
             objPS.setDate(2, (Date) objC.getFecha_cita());
             objPS.setTime(3, objC.getHora_cita());
             objPS.setString(4, objC.getMotivo());
+            objPS.setInt(5, objC.getId_cita());
             int totalAffected = objPS.executeUpdate();
             if (totalAffected > 0) {
                 isUpdate = true;
