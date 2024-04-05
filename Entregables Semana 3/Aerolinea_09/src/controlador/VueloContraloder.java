@@ -17,9 +17,9 @@ public class VueloContraloder {
     AvionServicio servicioAvion = new AvionServicio();
     AvionModel modelAvion = new AvionModel();
 
-    public void insertA() {
+    public void insertV() {
         Vuelo vuelo = new Vuelo();
-        String destino = JOptionPane.showInputDialog("Ingrese el destino del vuelo");
+        String destino = JOptionPane.showInputDialog("Ingrese el destino del vuelo ");
         vuelo.setDestino(destino);
         vuelo.setFecha_salida(servicioVuelo.date());
         vuelo.setHora_salida(servicioVuelo.time());
@@ -32,9 +32,10 @@ public class VueloContraloder {
                 verificacionA = true;
             }
         }
+        modelVuelo.insert(vuelo);
     }
 
-    public void updateA() {
+    public void updateV() {
         String list = servicioVuelo.getAll(modelVuelo.findAll());
         int id_vuelo = Integer.parseInt(JOptionPane.showInputDialog(list + "Ingrese el Id del vuelo a modificar: "));
         Vuelo objVuelo = (Vuelo) modelVuelo.findById(id_vuelo);
@@ -56,7 +57,7 @@ public class VueloContraloder {
         }
     }
 
-    public void deleteP() {
+    public void deleteV() {
         int confirm = 1;
         int idDelete = Integer.parseInt(JOptionPane.showInputDialog(servicioVuelo.getAll(modelVuelo.findAll()) + "\nIngrese el Id del vuelo a eliminar: "));
         Vuelo objVuelo = (Vuelo) modelVuelo.findById(idDelete);

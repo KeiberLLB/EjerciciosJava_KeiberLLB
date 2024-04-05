@@ -9,6 +9,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VueloServicio {
@@ -21,16 +22,17 @@ public class VueloServicio {
         }
         return list;
     }
-    public Object findByDestino(String destino) {
+    public List<Object> findByDestino(String destino) {
         Connection objConnection = ConfigDB.openConnection();
-        Vuelo objVuelo =null;
+        List<Object> listaVuelos = null;
         try {
-            String sql = "SELECT * FROM vuelo INNER JOIN avion on avion.id_avion = vuelo.id_avion WHERE destino = ?;";
+            String sql = "SELECT * FROM vuelo INNER JOIN avion on avion.id_avion = vuelo.id_avion WHERE vuelo.destino = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setString(1, destino);
             ResultSet objResult = objPS.executeQuery();
             while (objResult.next()) {
-                objVuelo = new Vuelo();
+                listaVuelos =new ArrayList<>();
+                Vuelo objVuelo = new Vuelo();
                 Avion objAvion = new Avion();
                 objVuelo.setId_vuelo(objResult.getInt("vuelo.id_vuelo"));
                 objVuelo.setDestino(objResult.getString("vuelo.destino"));
@@ -43,12 +45,13 @@ public class VueloServicio {
                 objAvion.setCapacidad(objResult.getInt("avion.capacidad"));
 
                 objVuelo.setobjAvion(objAvion);
+                listaVuelos.add(objVuelo);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
         }
         ConfigDB.closeConnection();
-        return objVuelo;
+        return listaVuelos;
     }
     public java.sql.Date date(){
         boolean dateCorrect = false;
@@ -80,12 +83,9 @@ public class VueloServicio {
             try {
                 // Convertir la hora al formato adecuado para Java
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                System.out.println("hola");
                 java.util.Date date = sdf.parse(horaStr);
-                System.out.println("hola2");
                 // Convertir la hora al formato adecuado para SQL (time)
                 Time timestamp = new Time(date.getTime());
-                System.out.println("hola3");
                 time = timestamp;
                 timeCorrect = true;
             } catch (Exception e) {
@@ -98,7 +98,7 @@ public class VueloServicio {
         Connection objConnection = ConfigDB.openConnection();
         Vuelo objVuelo =null;
         try {
-            String sql = "SELECT * FROM vuelo INNER JOIN avion on avion.id_avion = vuelo.id_avion WHERE fecha_salida = ?;";
+            String sql = "SELECT * FROM vuelo INNER JOIN avion on avion.id_avion = vuelo.id_avion WHERE vuelo.fecha_salida = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setDate(1, date);
             ResultSet objResult = objPS.executeQuery();

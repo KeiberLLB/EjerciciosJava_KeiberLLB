@@ -4,6 +4,7 @@ import database.ConfigDB;
 import entity.Avion;
 import entity.Reservacion;
 import entity.Vuelo;
+import model.VueloModel;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -15,6 +16,8 @@ import java.util.List;
 
 public class ReservacionServicio {
 
+    VueloModel modelVuelo = new VueloModel();
+
     public String getAll(List<Object> object) {
         String list = "Lista de Reservaciones: \n";
         for (Object cita : object) {
@@ -25,13 +28,14 @@ public class ReservacionServicio {
     }
 
     public String disponibilidadAsientos(int idVuelo) {
+        Vuelo objV = (Vuelo) modelVuelo.findById(idVuelo);
         Connection objConnection = ConfigDB.openConnection();
         List<Reservacion> reservas = new ArrayList<>();
         String list = null;
         try {
             String sql = "SELECT * FROM reservacion\n" +
                     "INNER JOIN vuelo on vuelo.id_vuelo = reservacion.id_vuelo\n" +
-                    "INNER JOIN avion on avion.id_avion = vuelo.id_avion WHERE id_vuelo = ?;";
+                    "INNER JOIN avion on avion.id_avion = vuelo.id_avion WHERE vuelo.id_vuelo = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setInt(1, idVuelo);
             ResultSet objResult = objPS.executeQuery();
@@ -61,44 +65,28 @@ public class ReservacionServicio {
                 objVuelo.setobjAvion(objAvion);
 
                 objReservacion.setObjVuelo(objVuelo);
+
                 reservas.add(objReservacion);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
         }
-        if(!reservas.isEmpty()){
-            int contador=reservas.size();
-            if (contador>reservas.get(0).getObjVuelo().getobjAvion().getCapacidad()){
-                boolean[][] listaAsientos = new boolean[reservas.get(0).getObjVuelo().getobjAvion().getColumnas()][reservas.get(0).getObjVuelo().getobjAvion().getFilas()];
+        boolean[][] listaAsientos = new boolean[objV.getobjAvion().getColumnas()][objV.getobjAvion().getFilas()];
 
+
+        if (reservas.size() < objV.getobjAvion().getCapacidad()) {
+            list = "";
+            for (Reservacion obj : reservas) {
+                listaAsientos[obj.getColumna()-1][obj.getFila()-1] = true;
             }
         }
-
-
-        ;
-
-
-        for (Reservacion obj : reservas){
-            listaAsientos[obj.getColumna()][obj.getFila()]=true;
-            list = "Asientos disponibles: \n"+"indique (columna-asiento)";
-            if (!reservas.isEmpty()) {
-                objReservacion.getAsiento();
-
-                boolean[][] listaAsientos = new boolean[objReservacion.getObjVuelo().getobjAvion().getColumnas()][objReservacion.getObjVuelo().getobjAvion().getFilas()];
-                listaAsientos[reservas.getFIla()][reservas.getColumn()] = true;
-
-
-                for (int i = 0; i < objReservacion.getObjVuelo().getobjAvion().getColumnas(); i++) {
-                    for (int j = 0; j < objReservacion.getObjVuelo().getobjAvion().getFilas(); j++) {
-                        if (!listaAsientos[i][j]) {
-                            list += "(" + (i + 1) + " - " + (j + 1) + ")";
-                        }
-                    }
+        for (int i = 0; i < objV.getobjAvion().getColumnas(); i++) {
+            for (int j = 0; j < objV.getobjAvion().getFilas(); j++) {
+                if (!listaAsientos[i][j]) {
+                    list += "(" + (i + 1) + " - " + (j + 1) + ")";
                 }
-            }
+            }list+="\n";
         }
-
-
         ConfigDB.closeConnection();
         return list;
     }

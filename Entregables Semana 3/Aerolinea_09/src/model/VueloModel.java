@@ -22,7 +22,7 @@ public class VueloModel implements CRUD {
         Vuelo objVuelo = (Vuelo) object;
         //Estructuración y ejecución comando SQL
         try {
-            String sql = "insert into vuelo(destino, fecha_salida, hora_salida, id_avion) values(?, ?, ?, ?);";
+                String sql = "insert into vuelo(destino, fecha_salida, hora_salida, id_avion) values(?, ?, ?, ?);";
             PreparedStatement objPS = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
             objPS.setString(1, objVuelo.getDestino());
@@ -115,7 +115,7 @@ public class VueloModel implements CRUD {
                 listVuelos.add(objVuelo);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data Error " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Data Error holavuelo model " + e.getMessage());
         }
         ConfigDB.closeConnection();
         return listVuelos;
@@ -142,6 +142,8 @@ public class VueloModel implements CRUD {
                 objAvion.setId_avion(objResult.getInt("avion.id_avion"));
                 objAvion.setModelo(objResult.getString("avion.modelo"));
                 objAvion.setCapacidad(objResult.getInt("avion.capacidad"));
+                objAvion.setFilas(objResult.getInt("avion.filas"));
+                objAvion.setColumnas(objResult.getInt("avion.columnas"));
 
                 objVuelo.setobjAvion(objAvion);
             }

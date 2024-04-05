@@ -23,7 +23,7 @@ public class AvionModel implements CRUD {
             PreparedStatement objPS = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             objPS.setString(1, objAvion.getModelo());
             objPS.setInt(2, objAvion.getFilas());
-            objPS.setInt(2, objAvion.getColumnas());
+            objPS.setInt(3, objAvion.getColumnas());
             objPS.setInt(4, objAvion.getCapacidad());
             objPS.execute();
             ResultSet objResult = objPS.getGeneratedKeys();

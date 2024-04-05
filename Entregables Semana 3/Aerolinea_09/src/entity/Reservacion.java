@@ -13,6 +13,7 @@ public class Reservacion {
     private Vuelo objVuelo;
 
     public Reservacion() {
+
     }
 
     public int getColumna() {
