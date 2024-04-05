@@ -10,7 +10,7 @@ public class PasajeroControlador {
     PasajeroModel modelPasajero = new PasajeroModel();
     PasajeroServicio servicioPasajero = new PasajeroServicio();
 
-    public void insertP(String cc) {
+    public Object insertP(String cc) {
         Pasajero pasajero = new Pasajero();
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del pasajero");
         String apellido = JOptionPane.showInputDialog("Ingrese los apellidos del pasajero");
@@ -19,6 +19,7 @@ public class PasajeroControlador {
         pasajero.setApellido(apellido);
         this.modelPasajero.insert(pasajero);
         JOptionPane.showMessageDialog(null, pasajero.toString());
+        return pasajero;
     }
     public void updateP() {
         String list = servicioPasajero.getAll(modelPasajero.findAll());

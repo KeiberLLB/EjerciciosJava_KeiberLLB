@@ -124,5 +124,4 @@ public class EspecialidadModel implements CRUD {
         return objEspecialidad;
     }
 
-
 }

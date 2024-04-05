@@ -19,10 +19,12 @@ public class AvionModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         Avion objAvion = (Avion) object;
         try {
-            String sql = "insert into avion (modelo, capacidad) values(?,?);";
+            String sql = "insert into avion (modelo, filas, columnas, capacidad) values(?,?,?,?);";
             PreparedStatement objPS = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             objPS.setString(1, objAvion.getModelo());
-            objPS.setInt(2, objAvion.getCapacidad());
+            objPS.setInt(2, objAvion.getFilas());
+            objPS.setInt(2, objAvion.getColumnas());
+            objPS.setInt(4, objAvion.getCapacidad());
             objPS.execute();
             ResultSet objResult = objPS.getGeneratedKeys();
             while (objResult.next()) {
@@ -44,11 +46,13 @@ public class AvionModel implements CRUD {
         Avion objAvion = (Avion) object;
         Connection objConnection = ConfigDB.openConnection();
         try {
-            String sql = "UPDATE avion SET modelo = ?, capacidad = ? WHERE id_avion = ?;";
+            String sql = "UPDATE avion SET modelo = ?, filas = ?, columnas = ?, capacidad = ? WHERE id_avion = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setString(1, objAvion.getModelo());
-            objPS.setInt(2, objAvion.getCapacidad());
-            objPS.setInt(3, objAvion.getId_avion());
+            objPS.setInt(2, objAvion.getFilas());
+            objPS.setInt(3, objAvion.getColumnas());
+            objPS.setInt(4, objAvion.getCapacidad());
+            objPS.setInt(5, objAvion.getId_avion());
             int totalAffected = objPS.executeUpdate();
             if (totalAffected > 0) {
                 isUpdate = true;

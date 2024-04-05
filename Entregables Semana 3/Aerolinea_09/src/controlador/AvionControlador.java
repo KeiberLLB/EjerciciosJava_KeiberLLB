@@ -12,7 +12,11 @@ public class AvionControlador {
     public void insertA() {
         Avion avion = new Avion();
         String modelo = JOptionPane.showInputDialog("Ingrese el modelo del avión");
-        int capacidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad del avión"));
+        int columnas = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de columnas que tiene el avión"));
+        int filas = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de filas que tiene el avión"));
+        int capacidad = filas*columnas;
+        avion.setFilas(filas);
+        avion.setColumnas(columnas);
         avion.setModelo(modelo);
         avion.setCapacidad(capacidad);
         this.modelAvion.insert(avion);
@@ -27,7 +31,9 @@ public class AvionControlador {
             JOptionPane.showMessageDialog(null, "Busqueda sin resultados.");
         } else {
             objAvion.setModelo(JOptionPane.showInputDialog(null, "Si es necesario ingrese el modelo: ", objAvion.getModelo()));
-            objAvion.setCapacidad(Integer.parseInt(JOptionPane.showInputDialog(null, "Si es necesario ingrese la capacidad: ", objAvion.getCapacidad())));
+            objAvion.setFilas(Integer.parseInt(JOptionPane.showInputDialog(null, "Si es necesario ingrese las filas: ", objAvion.getFilas())));
+            objAvion.setColumnas(Integer.parseInt(JOptionPane.showInputDialog(null, "Si es necesario ingrese las columnas: ", objAvion.getColumnas())));
+            objAvion.setCapacidad(objAvion.getColumnas()* objAvion.getFilas());
             modelAvion.update(objAvion);
         }
     }
@@ -44,13 +50,13 @@ public class AvionControlador {
             }
         }
     }
-    /*public void getByCC() {
-        String cc = JOptionPane.showInputDialog(null, "Ingresa el numero de documento del pasajero: ");
-        Avion pasajero = (Avion) servicioAvion.findByCC(cc);
-        if (pasajero == null) {
+    public void getByCapacidad() {
+        int capacidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa la capacidad del avion a buscar: \nLos resultados de la busqueda seran igual al valor solicitado o mayores."));
+        Avion avion = (Avion) servicioAvion.findByCapacidad(capacidad);
+        if (avion == null) {
             JOptionPane.showMessageDialog(null, "No se encontraron resultados.");
         } else {
-            JOptionPane.showMessageDialog(null, pasajero);
+            JOptionPane.showMessageDialog(null, avion);
         }
-    }*/
+    }
 }

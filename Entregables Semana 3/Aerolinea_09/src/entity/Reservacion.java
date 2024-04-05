@@ -7,11 +7,28 @@ public class Reservacion {
     private int id_pasajero;
     private int id_vuelo;
     private Date fecha_reservacion;
-    private String asiento;
+    private int columna;
+    private int fila;
     private Pasajero objPasajero;
     private Vuelo objVuelo;
 
     public Reservacion() {
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
     }
 
     public int getId_reservacion() {
@@ -46,14 +63,6 @@ public class Reservacion {
         this.fecha_reservacion = fecha_reservacion;
     }
 
-    public String getAsiento() {
-        return asiento;
-    }
-
-    public void setAsiento(String asiento) {
-        this.asiento = asiento;
-    }
-
     public Pasajero getObjPasajero() {
         return objPasajero;
     }
@@ -75,7 +84,7 @@ public class Reservacion {
         return "Reservacion \n" +
                 "   Id reservación= " + id_reservacion + "\n" +
                 "   Fecha reservación= " + fecha_reservacion + "\n" +
-                "   Asiento= " + asiento + "\n" +
+                "   Asiento= " + "(" + columna + " - " + fila + ")" + "\n" +
                 "       ***" + objPasajero.toString() +
                 "       ***" + objVuelo.toString() + "\n";
     }

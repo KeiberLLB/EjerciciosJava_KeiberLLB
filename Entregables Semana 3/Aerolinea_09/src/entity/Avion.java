@@ -4,6 +4,8 @@ public class Avion {
     private int id_avion;
     private String modelo;
     private int capacidad;
+    private int filas;
+    private int columnas;
 
     public Avion() {
     }
@@ -12,6 +14,22 @@ public class Avion {
         this.id_avion = id_avion;
         this.modelo = modelo;
         this.capacidad = capacidad;
+    }
+
+    public int getFilas() {
+        return filas;
+    }
+
+    public void setFilas(int filas) {
+        this.filas = filas;
+    }
+
+    public int getColumnas() {
+        return columnas;
+    }
+
+    public void setColumnas(int columnas) {
+        this.columnas = columnas;
     }
 
     public int getId_avion() {

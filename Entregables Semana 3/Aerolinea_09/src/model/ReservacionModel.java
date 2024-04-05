@@ -30,12 +30,13 @@ public class ReservacionModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         Reservacion objReservacion = (Reservacion) object;
         try {
-            String sql = "INSERT INTO reservacion(id_pasajero, id_vuelo, fecha_reservacion, asiento) values(?, ?, ?, ?);";
+            String sql = "INSERT INTO reservacion(id_pasajero, id_vuelo, fecha_reservacion, fila, columna) values(?, ?, ?, ?, ?);";
             PreparedStatement objPS = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             objPS.setInt(1, objReservacion.getId_pasajero());
             objPS.setInt(2, objReservacion.getId_vuelo());
             objPS.setDate(3, objReservacion.getFecha_reservacion());
-            objPS.setString(4, objReservacion.getAsiento());
+            objPS.setInt(4, objReservacion.getFila());
+            objPS.setInt(5, objReservacion.getColumna());
 
             objPS.execute();
             ResultSet objResult = objPS.getGeneratedKeys();
@@ -58,13 +59,14 @@ public class ReservacionModel implements CRUD {
         Reservacion objReservacion = (Reservacion) object;
         Connection objConnection = ConfigDB.openConnection();
         try {
-            String sql = "UPDATE reservacion SET id_pasajero = ?, id_vuelo = ?, fecha_reservacion = ?, String asiento = ? WHERE id_reservacion = ?;";
+            String sql = "UPDATE reservacion SET id_pasajero = ?, id_vuelo = ?, fecha_reservacion = ?, fila = ?, columna = ? WHERE id_reservacion = ?;";
             PreparedStatement objPS = objConnection.prepareStatement(sql);
             objPS.setInt(1, objReservacion.getId_pasajero());
             objPS.setInt(2, objReservacion.getId_vuelo());
             objPS.setDate(3, objReservacion.getFecha_reservacion());
-            objPS.setString(4, objReservacion.getAsiento());
-            objPS.setInt(5, objReservacion.getId_reservacion());
+            objPS.setInt(4,objReservacion.getFila());
+            objPS.setInt(5,objReservacion.getColumna());
+            objPS.setInt(6, objReservacion.getId_reservacion());
 
             int totalAffected = objPS.executeUpdate();
             if (totalAffected > 0) {
@@ -117,7 +119,8 @@ public class ReservacionModel implements CRUD {
                 objReservacion.setId_pasajero(objResult.getInt("reservacion.id_pasajero"));
                 objReservacion.setId_vuelo(objResult.getInt("reservacion.id_vuelo"));
                 objReservacion.setFecha_reservacion(objResult.getDate("reservacion.fecha_reservacion"));
-                objReservacion.setAsiento(objResult.getString("reservacion.asiento"));
+                objReservacion.setFila(objResult.getInt("reservacion.fila"));
+                objReservacion.setColumna(objResult.getInt("reservacion.columna"));
 
                 objPasajero.setId_pasajero(objResult.getInt("pasajero.id_pasajero"));
                 objPasajero.setNombre(objResult.getString("pasajero.nombre"));
@@ -166,7 +169,8 @@ public class ReservacionModel implements CRUD {
                 objReservacion.setId_pasajero(objResult.getInt("reservacion.id_pasajero"));
                 objReservacion.setId_vuelo(objResult.getInt("reservacion.id_vuelo"));
                 objReservacion.setFecha_reservacion(objResult.getDate("reservacion.fecha_reservacion"));
-                objReservacion.setAsiento(objResult.getString("reservacion.asiento"));
+                objReservacion.setFila(objResult.getInt("reservacion.fila"));
+                objReservacion.setColumna(objResult.getInt("reservacion.columna"));
 
                 objPasajero.setId_pasajero(objResult.getInt("pasajero.id_pasajero"));
                 objPasajero.setNombre(objResult.getString("pasajero.nombre"));
