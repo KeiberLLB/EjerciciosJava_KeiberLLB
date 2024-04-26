@@ -3,6 +3,9 @@ package com.riwi.events.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.riwi.events.entities.Events;
@@ -19,9 +22,10 @@ public class EventServices implements IEventServices {
     return this.eventRepository.save(event);
   }
 
-  @Override
-  public List<Events> getAll() {
-    return this.eventRepository.findAll();
+  public Page<Events> getAll(int page, int size) {
+    page = (page < 0) ? 0 : page;
+    PageRequest pagination = PageRequest.of(page, size);
+    return this.eventRepository.findAll(pagination);
   }
 
   @Override

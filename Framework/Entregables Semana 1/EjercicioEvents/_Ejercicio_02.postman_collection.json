@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "32a94cf9-ffbb-4d12-b9b0-9a307332debe",
+		"name": "_Ejercicio_02",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34443772"
+	},
+	"item": [
+		{
+			"name": "insert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.collectionVariables.set(\"id_event\",response.id);",
+							"console.log(\"Id guardado \" + pm.collectionVariables.get(\"id_event\"));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Concierto Nuevos Talentos\",\n    \"fecha\": \"2024-04-27\",\n    \"ubicacion\":\"Polideportivo Sur\",\n    \"capacidad\": 30\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/{{id_product}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"{{id_product}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Concierto Nuevos Talentos\",\n    \"fecha\": \"2024-04-29\",\n    \"ubicacion\":\"Polideportivo Sur\",\n    \"capacidad\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/3d84477e-05fe-448d-9c79-f64338c19b5d",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"3d84477e-05fe-448d-9c79-f64338c19b5d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/{{id_product}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"{{id_product}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": ""
+		},
+		{
+			"key": "id_product",
+			"value": ""
+		},
+		{
+			"key": "id_event",
+			"value": ""
+		}
+	]
+}
